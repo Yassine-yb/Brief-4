@@ -63,29 +63,8 @@ if (isset($_POST['buy'])){
                
             </div>
 
-            <img src="images/nav-icon.png" class="iconenav" alt="barssolid" onclick="nav()">
+            <!-- <img src="images/nav-icon.png" class="iconenav" alt="barssolid" onclick="nav()"> -->
             
-        </div>
-        
-
-        <!-- Simulate a smartphone / tablet -->
-        <div class="mobile-container">
-
-            <!-- Top Navigation Menu -->
-            <div class="topnav">
-                <a href="#home" class="active">Logo</a>
-                <div id="myLinks">
-                    <a class="active" href="index.php"><i class="fa fa-fw fa-home"></i> Home</a> 
-                    <a href="gallery.php"><i class="fa fa-film"></i> Gallerie</a> 
-                    <a href="Login.php"><i class=" fa fa-sign-in"></i> Sign-In</a>
-                </div>
-                <a href="javascript:void(0);" class="icon" onclick="nav()">
-                    <i class="fa fa-bars"></i>
-                </a>
-                </div>
-            </div>
-
-            <!-- End smartphone / tablet look -->
         </div>
 
 
