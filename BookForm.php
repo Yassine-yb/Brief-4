@@ -30,58 +30,59 @@
 </head>
 
 <body>
-        <?php
     
-include("securite.php");
-include('conne.php');
-
-if(isset($_POST['ajouter'])){
-    if(!empty($_POST['titre'])&& !empty($_POST['dateCreation'])&&!empty($_POST['Prix'])) {
-
-        $titre=$_POST['titre'];
-        $dateCreation=$_POST['dateCreation'];
-        $Prix=$_POST['Prix'];
-        $src=$_FILES['src']['name'];
-
-        move_uploaded_file($_FILES['src']['tmp_name'],"images/".$src);
-
-        $insert="INSERT INTO livre (titre,dateCreation,prix,src)value('$titre','$dateCreation','$Prix','$src')";
-        $query=mysqli_query($con,$insert) or die(mysqli_error($con));
-        header("Location:Our-BookAdmin.php");    
-
+    <?php
     
-    }else{
-        echo("<SCRIPT LANGUAGE='JavaScript'>
-        window.alert('Tous les champs obligatoir');
-        </SCRIPT>");            
-    }
+        include("securite.php");
+        include('conne.php');
 
-    $id="SELECT LAST_INSERT_ID() FROM `livre`";
-    $result=$con->query($id);
-    $row = $result -> fetch_assoc();
-    $idlivre=$row["LAST_INSERT_ID()"];
+        if(isset($_POST['ajouter'])){
+            if(!empty($_POST['titre'])&& !empty($_POST['dateCreation'])&&!empty($_POST['Prix'])) {
+
+                $titre=$_POST['titre'];
+                $dateCreation=$_POST['dateCreation'];
+                $Prix=$_POST['Prix'];
+                $src=$_FILES['src']['name'];
+
+                move_uploaded_file($_FILES['src']['tmp_name'],"images/".$src);
+
+                $insert="INSERT INTO livre (titre,dateCreation,prix,src)value('$titre','$dateCreation','$Prix','$src')";
+                $query=mysqli_query($con,$insert) or die(mysqli_error($con));
+                header("Location:Our-BookAdmin.php");    
+
+            
+            }else{
+                echo("<SCRIPT LANGUAGE='JavaScript'>
+                window.alert('Tous les champs obligatoir');
+                </SCRIPT>");            
+            }
+
+            $id="SELECT LAST_INSERT_ID() FROM `livre`";
+            $result=$con->query($id);
+            $row = $result -> fetch_assoc();
+            $idlivre=$row["LAST_INSERT_ID()"];
 
 
-       
+            
 
-    if(!empty($_POST['auteur'])){
-        $idauteur= $_POST["auteur"];
-        
-        $in="INSERT INTO `livreauteur`(idA,idL)value($idauteur,$idlivre)";
-    }
-    mysqli_query($con,$in) or die(mysqli_error($con));
+            if(!empty($_POST['auteur'])){
+                $idauteur= $_POST["auteur"];
+                
+                $in="INSERT INTO `livreauteur`(idA,idL)value($idauteur,$idlivre)";
+            }
+            mysqli_query($con,$in) or die(mysqli_error($con));
 
 
-    if(!empty($_POST['autre'])){
-        $idautre= $_POST["autre"];
-    
-            $intt="INSERT INTO `livreauteur` (idA,idL)value($idautre,$idlivre)";
+            if(!empty($_POST['autre'])){
+                $idautre= $_POST["autre"];
+            
+                    $intt="INSERT INTO `livreauteur` (idA,idL)value($idautre,$idlivre)";
+                }
+            mysqli_query($con,$intt) or die(mysqli_error($con));
+
+                
         }
-    mysqli_query($con,$intt) or die(mysqli_error($con));
-
-        
-}
-?>
+    ?>
 
 
 
@@ -90,7 +91,6 @@ if(isset($_POST['ajouter'])){
     <header>
 
         <div class="topnav">
-
             <div class="logo"> 
                 <a href="indexAdmin.php"><img src="images/yf.png" alt="logo"></a> 
             </div>
@@ -100,13 +100,10 @@ if(isset($_POST['ajouter'])){
                 <a class="active" href="Our-BookAdmin.php"><i class="fa fa-book"></i> Nos Livres</a> 
                 <a  href="our-authorAdmin.php"><i class="fa fa-user-plus"></i> Nos Auteurs</a>
                 <a href="logout.php" name="logout" action="" method="POST"><i class=" fa fa-sign-in"></i>LogOut</a>
-            
             </div>
 
-            <img src="images/nav-icon.png" class="iconenav" alt="barssolid" onclick="nav()">
-            
+            <img src="images/nav-icon.png" class="iconenav" alt="barssolid" onclick="nav()">   
         </div>
-
 
     </header>
 
