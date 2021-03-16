@@ -104,25 +104,38 @@
 
             <div class="form-bg1">
                 
+      <?php
+include("conne.php");
 
+$id =(isset($_GET['id']) ? $_GET['id'] : '');
+
+ $query ="SELECT* FROM auteur WHERE id=$id";
+
+
+if(mysqli_multi_query($con,$query)){
+                if($result=mysqli_store_result($con)){
+
+
+                while($row=mysqli_fetch_array($result))  {
+                    ?>
                     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
 
 
                         <div class="form-content">
 
                             <div class="d3">
-                                <img src="images/addpic.png" alt="addpic" id="addpic">
-                                <input type="file" alt="picture" class="fileup" accept=".png, .jpg, .jpeg" name="srcA" data-id='addpic'  style="opacity:0;">
+                                <img src="images/<?php echo  $row['srcA']?>" alt="" id="addpic" >
+                                <input type="file" alt="picture" class="fileup" accept=".png, .jpg, .jpeg" name="srcA" data-id='addpic'  style="opacity:0;"value="<?php echo $row['srcA']?>">
                             </div>
 
                             <div class="content">
                                 <div class="d1">
                                     <label for="fname">First Name</label>
-                                    <input type="text" id="fname" name="nomA" placeholder="First name..">
+                                    <input type="text" id="fname" name="nomA" placeholder="First name.." value="<?php echo $row['nom']?>">
                                 </div>
                                 <div class="d1">
                                     <label for="lname">Last Name</label>
-                                    <input type="text" id="lname" name="prenomA" placeholder="Last name..">
+                                    <input type="text" id="lname" name="prenomA" placeholder="Last name.." value="<?php echo $row['prenom']?>">
                                 </div>
                                 <div class="d1">
                                     <label for="sexe">Author</label>
@@ -133,12 +146,12 @@
                                 </div>
                                 <div class="d1">
                                     <label for="Date Naissance">Date de Naissance:</label>
-                                    <input type="date" id="dateN" name="dateN">
+                                    <input type="date" id="dateN" name="dateN" value="<?php echo $row['dateN']?>">
                                 </div>
             
                             </div>
                         </div>  
-
+   <?php }}}?>
                         <input type="submit" value="Modifier" name="modifier">
                     </form>
 

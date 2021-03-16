@@ -117,54 +117,79 @@
         <!--========================================================================-->
 
         <div class="form-bg2">
+        <?php
+            include("conne.php");
+
+            $id =(isset($_GET['id']) ? $_GET['id'] : '');
+
+            $query ="SELECT* FROM livre ,livreauteur, auteur WHERE livre.idL=livreauteur.idL AND auteur.id=livreauteur.idA AND livre.idL=$id";
+
+
+            if(mysqli_multi_query($con,$query)){
+                            if($result=mysqli_store_result($con)){
+
+
+                            while($row=mysqli_fetch_array($result))  {
+
+
+        ?>
             
 
+
+
+
                 <form action="<?php $_SERVER['PHP_SELF']?>"  method="POST" enctype="multipart/form-data">
+
 
                     <div class="form-content">
 
                         <div class="d2">
-                            <img src="images/addpic.png" alt="" id="addpic">
+                            <img src="images/<?php echo  $row['src']?>" alt="" id="addpic" >
                             <input type="file" alt="picture" class="fileup" accept=".png, .jpg, .jpeg" name="src" data-id='addpic'  style="opacity:0;">
                         </div>
 
                         <div class="content">
                             <div class="d1">
                                 <label for="title">Title</label>
-                                <input type="text" id="title" name="titre" placeholder="Title">
+                                <input type="text" id="title" name="titre" placeholder="Title" value="<?php echo $row['titre']?>">
                             </div>
                             <div class="d1">
                                 <label for="price">Price</label>
-                                <input type="text" id="price" name="Prix" placeholder="Price">
+                                <input type="text" id="price" name="Prix" placeholder="Price" value="<?php echo $row['prix']?>">
                             </div>
                             <div class="d1">
-                                <label for="auteur">Auteur</label>
+                                <label for="auteur">Auteur</label>   
                                 <select name="auteur">
                                     <?php
+                                    echo "<option>".$row['nom']."</option>";
                                         $query = mysqli_query($con,"SELECT * from auteur");
-                                        while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC))
-                                            echo "<option value='".$row['id']."'>".$row['nom']."</option>";
+                                        while ($row1 = mysqli_fetch_array($query, MYSQLI_ASSOC))
+                                            echo "<option value='".$row1['id']."'>".$row1['nom']."</option>";
                                     ?>
-                                </select>
+                            </select>        
                             </div>
+                    
                             <div class="d1">
                                 <label for="auteur">Autre Auteur</label>
                                 <select  name="autre">
                                     <?php
                                     echo "<option></option>";
                                     $query = mysqli_query($con,"SELECT * from auteur");
-                                    while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC))
-                                        echo "<option value='".$row['id']."'>".$row['nom']."</option>";
+                                    while ($row1 = mysqli_fetch_array($query, MYSQLI_ASSOC))
+                                        echo "<option value='".$row1['id']."'>".$row1['nom']."</option>";
                                     ?>
                                 </select>
                             </div>
+
                             <div class="d1">
-                                <label for="Date Naissance">Date de Création:</label>
-                                <input type="date" id="dateC" name="dateCreation">
+                                <label for="Date Naissance">Date de Création: </label>
+                                <input type="date" id="dateN" name="dateCreation" value="<?php echo $row['dateCreation']?>">
                             </div>
+                            
+                           
                         </div>
 
-    
+    <?php }}}?>
                     </div>
                     <input type="submit" value="Modifier" name="modifier">
                 </form>
@@ -176,13 +201,14 @@
 
         <!--========================================================================-->
 
-        <script
+    <script
     src="https://code.jquery.com/jquery-3.5.1.js"
     integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
     crossorigin="anonymous"></script>
     
     <!--JavaScript-->
     <script type="text/javascript" src="all.js"></script>
+
     
 </body>
 
@@ -208,4 +234,5 @@
         
      </div>
 </footer>
+
 </html>
