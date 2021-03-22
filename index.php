@@ -51,8 +51,6 @@ if (isset($_POST['buy'])){
 
         <div class="topnav">
 
-            
-            
             <div class="logo"> 
                 <a href="index.php"><img src="images/yf.png" alt="logo"></a> 
             </div>
